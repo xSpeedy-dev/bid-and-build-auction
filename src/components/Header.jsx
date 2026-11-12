@@ -1,6 +1,7 @@
 import React from 'react';
 import { Gavel, Sparkles, Volume2, VolumeX, RotateCcw, Database, Info, Trophy } from 'lucide-react';
 import { isSoundEnabled, toggleSound } from '../utils/audio';
+import { INITIAL_BUDGET_CR } from '../data/companies';
 
 export default function Header({
   activeTab,
@@ -53,7 +54,7 @@ export default function Header({
             <div className="flex flex-col">
               <span className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Total Capital Deployed</span>
               <span className="text-sm font-bold font-mono text-emerald-400">
-                ₹{totalSpentCr.toLocaleString()} Cr <span className="text-xs text-slate-500 font-normal">/ 12,000 Cr</span>
+                ₹{totalSpentCr.toLocaleString()} Cr <span className="text-xs text-slate-500 font-normal">/ {(INITIAL_BUDGET_CR * 10).toLocaleString()} Cr</span>
               </span>
             </div>
             <div className="w-px h-7 bg-slate-800" />

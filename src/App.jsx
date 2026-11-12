@@ -16,7 +16,8 @@ import { generateSampleAuctionState } from './data/sampleData';
 import { evaluateTeamPortfolio } from './utils/scoring';
 import { isSoundEnabled } from './utils/audio';
 
-const STORAGE_KEY = 'bid_build_2026_state_v1';
+const STORAGE_KEY = 'bid_build_2026_state_v2';
+const LEGACY_STORAGE_KEY = 'bid_build_2026_state_v1';
 
 export default function App() {
   // Navigation active tab: 'auction', 'scoring', 'leaderboard', 'catalog'
@@ -34,11 +35,21 @@ export default function App() {
   // App Global State: teams and soldMap
   const [teams, setTeams] = useState(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && Array.isArray(parsed.teams)) {
-          return parsed.teams;
+          return parsed.teams.map(t => {
+            if (t.initialBudget === 1200) {
+              const spent = 1200 - t.remainingBudget;
+              return {
+                ...t,
+                initialBudget: INITIAL_BUDGET_CR,
+                remainingBudget: Math.max(0, INITIAL_BUDGET_CR - spent),
+              };
+            }
+            return t;
+          });
         }
       }
     } catch (e) {
@@ -50,7 +61,7 @@ export default function App() {
 
   const [soldMap, setSoldMap] = useState(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.soldMap) {
@@ -210,6 +221,7 @@ export default function App() {
     if (!confirmed) return;
 
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(LEGACY_STORAGE_KEY);
     setTeams(INITIAL_TEAMS);
     setSoldMap({});
     setSelectedTeamId('team-1');
@@ -319,7 +331,7 @@ export default function App() {
             <span>Venture Capital Portfolio Valuation Engine</span>
           </div>
           <div className="font-mono text-[11px] text-slate-400">
-            10 Teams • 6 Core VC Roles • 75 Master Assets • 1,200 Cr Budget Cap
+            10 Teams • 6 Core VC Roles • 75 Master Assets • {INITIAL_BUDGET_CR.toLocaleString()} Cr Budget Cap
           </div>
         </div>
       </footer>

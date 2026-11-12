@@ -227,7 +227,7 @@ export const SYNERGY_RULES = [
   },
 ];
 
-export const INITIAL_BUDGET_CR = 1200;
+export const INITIAL_BUDGET_CR = 1400;
 
 export const INITIAL_TEAMS = Array.from({ length: 10 }, (_, i) => {
   const num = i + 1;

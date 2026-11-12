@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Award, Flame, Layers, ShieldCheck, Sparkles, BookOpen } from 'lucide-react';
-import { CORE_VC_ROLES, SYNERGY_RULES, ATTRIBUTE_CONFIG } from '../data/companies';
+import { CORE_VC_ROLES, SYNERGY_RULES, ATTRIBUTE_CONFIG, INITIAL_BUDGET_CR } from '../data/companies';
 
 export default function RulesModal({ isOpen, onClose }) {
   if (!isOpen) return null;
@@ -104,7 +104,7 @@ export default function RulesModal({ isOpen, onClose }) {
         <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 space-y-1.5">
           <span className="font-bold text-white block">Key Auction Rules:</span>
           <ul className="list-disc list-inside space-y-1 text-slate-400">
-            <li>Each of the 10 teams starts with a strictly enforced budget of <strong>1,200 Cr</strong>.</li>
+            <li>Each of the 10 teams starts with a strictly enforced budget of <strong>{INITIAL_BUDGET_CR.toLocaleString()} Cr</strong>.</li>
             <li>Winning bid must be greater than or equal to the company's verified <strong>Base Price</strong>.</li>
             <li>A team must have sufficient remaining budget to place a winning bid.</li>
             <li>Each company can only fill <strong>one</strong> role in a team's final portfolio.</li>

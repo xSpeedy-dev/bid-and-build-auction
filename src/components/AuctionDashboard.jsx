@@ -169,7 +169,7 @@ export default function AuctionDashboard({
             <div>
               <div className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Teams in Play</div>
               <div className="text-base font-bold font-mono text-emerald-300">
-                10 Teams <span className="text-xs text-slate-500">(1,200 Cr ea)</span>
+                10 Teams <span className="text-xs text-slate-500">({INITIAL_BUDGET_CR.toLocaleString()} Cr ea)</span>
               </div>
             </div>
           </div>
@@ -461,7 +461,7 @@ export default function AuctionDashboard({
               </div>
 
               <span className="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
-                Starting Budget: 1,200 Cr ea
+                Starting Budget: {INITIAL_BUDGET_CR.toLocaleString()} Cr ea
               </span>
             </div>
 
