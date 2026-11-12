@@ -87,7 +87,7 @@ export default function Leaderboard({ teams, masterCompanies, onSelectTeamForSco
                 <th className="py-3 px-3">Team</th>
                 <th className="py-3 px-3">Final Score</th>
                 <th className="py-3 px-3">Base Score</th>
-                <th className="py-3 px-3">Synergy Multiplier</th>
+                <th className="py-3 px-3">Active Synergies</th>
                 <th className="py-3 px-3">Assigned</th>
                 <th className="py-3 px-3">Budget Remaining</th>
                 <th className="py-3 px-3 text-right">Actions</th>
@@ -155,18 +155,26 @@ export default function Leaderboard({ teams, masterCompanies, onSelectTeamForSco
                       <span className="text-[10px] text-slate-500">/ 60</span>
                     </td>
 
-                    {/* Synergy Multiplier */}
+                    {/* Active Synergies */}
                     <td className="py-4 px-3 whitespace-nowrap">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-mono font-bold text-xs ${
-                        evaluation.synergyMultiplier > 1.0
-                          ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                          : 'bg-slate-800 text-slate-400'
-                      }`}>
-                        {evaluation.synergyMultiplier.toFixed(2)}x
-                        {evaluation.activeSynergy && (
-                          <Flame className="w-3 h-3 text-amber-400" />
-                        )}
-                      </span>
+                      {evaluation.synergyGroups && evaluation.synergyGroups.length > 0 ? (
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {evaluation.synergyGroups.map(g => (
+                            <span
+                              key={g.synergy.id}
+                              title={`${g.synergy.name} (${g.multiplier}x) - Boost: +${(g.synergyScore - g.baseScoreSum).toFixed(2)} pts`}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-mono font-bold text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                            >
+                              <Flame className="w-3 h-3 text-amber-400" />
+                              {g.multiplier.toFixed(2)}x
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md font-mono text-xs bg-slate-800 text-slate-400">
+                          1.00x
+                        </span>
+                      )}
                     </td>
 
                     {/* Assigned Roles */}

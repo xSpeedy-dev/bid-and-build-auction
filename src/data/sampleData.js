@@ -88,6 +88,7 @@ export function generateSampleAuctionState() {
         strategic_hub: null,
         defensive_pioneer: null,
       },
+      selectedSynergies: [],
     };
   });
 
@@ -128,6 +129,7 @@ export function generateSampleAuctionState() {
     strategic_hub: companyMap['OpenAI']?.id || null, // AD 9.5, IN 9.5
     defensive_pioneer: companyMap['Veeva Systems']?.id || null, // MD 8.5
   };
+  team1.selectedSynergies = ['tech_ai_healthcare'];
 
   // Pre-assign roles for Team 2 (Retail x Q-Commerce x Logistics)
   const team2 = teams[1];
@@ -139,6 +141,7 @@ export function generateSampleAuctionState() {
     strategic_hub: companyMap['Blinkit']?.id || null,
     defensive_pioneer: companyMap['FedEx']?.id || null,
   };
+  team2.selectedSynergies = ['retail_qcommerce_logistics'];
 
   // Pre-assign roles for Team 3 (Tech x AI x Finance)
   const team3 = teams[2];
@@ -150,6 +153,7 @@ export function generateSampleAuctionState() {
     strategic_hub: companyMap['Meta AI']?.id || null,
     defensive_pioneer: companyMap['BlackRock']?.id || null,
   };
+  team3.selectedSynergies = ['tech_ai_finance'];
 
   return { teams, soldMap };
 }

@@ -40,15 +40,13 @@ export default function App() {
         const parsed = JSON.parse(saved);
         if (parsed && Array.isArray(parsed.teams)) {
           return parsed.teams.map(t => {
-            if (t.initialBudget === 1200) {
-              const spent = 1200 - t.remainingBudget;
-              return {
-                ...t,
-                initialBudget: INITIAL_BUDGET_CR,
-                remainingBudget: Math.max(0, INITIAL_BUDGET_CR - spent),
-              };
-            }
-            return t;
+            const spent = t.initialBudget === 1200 ? (1200 - t.remainingBudget) : (INITIAL_BUDGET_CR - t.remainingBudget);
+            return {
+              ...t,
+              initialBudget: INITIAL_BUDGET_CR,
+              remainingBudget: Math.max(0, INITIAL_BUDGET_CR - (isNaN(spent) ? 0 : spent)),
+              selectedSynergies: Array.isArray(t.selectedSynergies) ? t.selectedSynergies : [],
+            };
           });
         }
       }
@@ -213,6 +211,19 @@ export default function App() {
     });
   };
 
+  // ACTION: Update Selected Synergies for a Team
+  const handleUpdateTeamSynergies = (teamId, selectedSynergies) => {
+    setTeams(prevTeams => {
+      return prevTeams.map(team => {
+        if (team.id !== teamId) return team;
+        return {
+          ...team,
+          selectedSynergies,
+        };
+      });
+    });
+  };
+
   // ACTION: Reset Auction State
   const handleResetAuction = () => {
     const confirmed = window.confirm(
@@ -295,6 +306,7 @@ export default function App() {
             setSelectedTeamId={setSelectedTeamId}
             onAssignRole={handleAssignRole}
             onAutoAssignTeam={handleAutoAssignTeam}
+            onUpdateTeamSynergies={handleUpdateTeamSynergies}
           />
         )}
 

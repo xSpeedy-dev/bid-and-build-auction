@@ -65,7 +65,7 @@ export default function RulesModal({ isOpen, onClose }) {
             2. Industry Sector Synergy Multipliers
           </h4>
           <p className="text-xs text-slate-300">
-            Calculated on the sectors of the 6 assigned companies. The highest matching multiplier is applied to the team's base role score:
+            Synergy multipliers apply locally to the specific assigned companies forming each synergy. A single assigned company can only be consumed by one active synergy. Multipliers can be manually combined (e.g. one Trio or two Duos) if sector availability permits:
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">

@@ -246,6 +246,7 @@ export const INITIAL_TEAMS = Array.from({ length: 10 }, (_, i) => {
       strategic_hub: null,
       defensive_pioneer: null,
     },
+    selectedSynergies: [],
   };
 });
 
